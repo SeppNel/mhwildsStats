@@ -1,0 +1,29 @@
+<hunts>
+	<hunt>
+		date
+		time
+		failed
+		<player>
+			name
+		</player>
+		<otomo>
+			name
+		</otomo>
+		<monster>
+			name
+			maxHP
+			<player>
+				name
+				total
+				phys
+				elem
+				poison
+				blast
+				true
+				stun
+				sleep
+				para
+			</player>
+		</monster>
+	</hunt>
+</hunts>
