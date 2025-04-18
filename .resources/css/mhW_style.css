@@ -394,9 +394,16 @@ tr:nth-child(odd) {
 	}
 
 	#menu a {
-		font-size: 0.9em;
-		flex-grow: 1;
-		margin-right: 5px;
+		font-size: 0.8em;
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		padding: 5px 0 5px 0;
+	}
+
+	#menu a>img {
+		margin: auto;
 	}
 
 	#menu {
@@ -422,17 +429,17 @@ tr:nth-child(odd) {
 	}
 
 	#fail img {
-		width: 7em;
+		width: 6em;
 	}
 
 	#fail {
 		position: absolute;
-		right: 1em;
-		top: 9em;
+		right: 0.9em;
+		top: 6em;
 	}
 
 	#graph {
-		width: 100%;
+		width: 96%;
 	}
 
 	#desglose {
@@ -441,17 +448,25 @@ tr:nth-child(odd) {
 		font-size: 0.8em;
 	}
 
-	#desglose div {
+	#desglose>.desg {
+		width: 100%;
+		text-align: center;
+	}
+
+	#desglose>.desg>.player_heading {
+		display: block ruby;
 		width: 80%;
+		margin: 1em auto 1em auto;
 	}
 
 	#icons {
-		width: 100%;
-		flex-wrap: wrap;
+		height: 250px;
 	}
 
 	#icons img {
-		width: 50%;
+		height: 100%;
+		width: calc(100% / var(--image-count));
+		object-fit: contain;
 	}
 
 	#top {
@@ -476,9 +491,8 @@ tr:nth-child(odd) {
 	}
 
 	.complem {
-		width: 80%;
-		margin: auto;
-		margin-bottom: 1em;
+		margin: 0 3% 0.5em 3%;
+		flex-basis: 44%;
 	}
 
 	#bot {

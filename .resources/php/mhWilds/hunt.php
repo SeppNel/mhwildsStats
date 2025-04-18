@@ -45,7 +45,7 @@ $hunt = $bd->hunt[$id];
 					}
 				?>
 			</div>
-			<div id="icons">
+			<div id="icons" style="--image-count: <?php echo count($monsters); ?>">
 				<?php
 					foreach ($monsters as $monster) {
 						echo '<img src="../../img/mhWilds/monsters/', strtolower($monster), '.png">';
