@@ -7,11 +7,9 @@ function getTopDPS($bd){
 	$huntCount = [];
 
 	foreach ($bd->hunt as $hunt) {
+		$interval = DPS_INTERVAL;
 		if(count($hunt->otomo) == 0){
-			$interval = [0, 0, 50, 33.33, 25];
-		}
-		else{
-			$interval = DPS_INTERVAL;
+			$interval[2] = 50;
 		}
 
 		$hp = 0;
@@ -55,11 +53,9 @@ function getConsistent($bd){
 	$otomos = getAllOtomos($bd);
 
 	foreach ($bd->hunt as $hunt) {
+		$interval = DPS_INTERVAL;
 		if(count($hunt->otomo) == 0){
-			$interval = [0, 0, 50, 33.33, 25];
-		}
-		else{
-			$interval = DPS_INTERVAL;
+			$interval[2] = 50;
 		}
 
 		$hp = 0;

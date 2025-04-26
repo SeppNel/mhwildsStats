@@ -110,12 +110,11 @@ function getMinMaxMonster($bd, $p, $type){
 
 	$hunts = $bd->hunt;
 	foreach ($hunts as $hunt) {
+		$interval = DPS_INTERVAL;
 		if(count($hunt->otomo) == 0){
-			$interval = [0, 0, 50, 33.33, 25];
+			$interval[2] = 50;
 		}
-		else{
-			$interval = DPS_INTERVAL;
-		}
+		
 		$numHunters = count($hunt->player);
 		foreach ($hunt->monster as $monster) {
 			foreach ($monster->player as $player) {
