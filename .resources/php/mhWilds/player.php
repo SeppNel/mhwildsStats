@@ -16,33 +16,25 @@ function getFastestHunt($bd, $p){
 }
 
 function getMedia($bd, $p, $numP){
-	$percents = array();
+	$percents = 0;
+	$count = 0;
 	foreach ($bd->hunt as $hunt) {
-		$damage = 0;
-		$maxHP = 0;
 		if(count($hunt->player) != $numP){
 			continue;
 		}
-		foreach ($hunt->monster as $monster) {
-			foreach ($monster->player as $player) {
-				if($player->name == $p){
-					$damage += $player->total;
-					$maxHP += $monster->maxHP;
-					break;
-				}
-			}
-		}
 
-		if($maxHP != 0){
-			array_push($percents, ($damage/$maxHP)*100);
-		}
+		$damage = getTotalDamageCountFromHunt($hunt, $p);
+		$maxHP = getTotalMaxHpFromHunt($hunt);
+
+		$percents += $damage / $maxHP * 100;
+		$count++;
 	}
 
-	if(count($percents) == 0){
+	if($count == 0){
 		return 0;
 	}
 
-	return array_sum($percents) / count($percents);
+	return $percents / $count;
 }
 
 function getTotals($bd, $p){
@@ -114,7 +106,7 @@ function getMinMaxMonster($bd, $p, $type){
 		if(count($hunt->otomo) == 0){
 			$interval[2] = 50;
 		}
-		
+
 		$numHunters = count($hunt->player);
 		foreach ($hunt->monster as $monster) {
 			foreach ($monster->player as $player) {

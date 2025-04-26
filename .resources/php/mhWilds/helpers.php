@@ -1,6 +1,6 @@
 <?php
 // (100 - avg(allOtomoDamageinHuntPX) / playerCount)
-const DPS_INTERVAL = [0, 0, 47.808, 33.3333, 25];
+const DPS_INTERVAL = [0, 0, 46.3058, 33.3333, 25];
 
 const WEAPONS_NAME = ["Gran Espada", "Espada y Escudo", "Espadas Dobles", "Espada Larga", "Martillo", "Cornamusa", "Lanza", "Lanza Pistola", "Hacha Espada", "Hacha Cargada", "Glaive Insecto", "Arco", "Ballesta Pesada", "Ballesta Ligera"];
 const WEAPONS_IMG = ["greatsword.png", "swordshield.png", "dualblades.png", "longsword.png", "hammer.png", "huntinghorn.png", "lance.png", "gunlance.png", "switchaxe.png", "chargeblade.png", "insectglaive.png", "bow.png", "heavybowgun.png", "lightbowgun.png"];
@@ -131,6 +131,15 @@ function getTotalDamageCountFromHunt($hunt, $playerName) {
     }
 
     return $count;
+}
+
+function getTotalMaxHpFromHunt($hunt){
+	$hp = 0;
+	foreach ($hunt->monster as $monster) {
+        $hp += $monster->maxHP;
+    }
+
+	return $hp;
 }
 
 // --- HUNTERS ---

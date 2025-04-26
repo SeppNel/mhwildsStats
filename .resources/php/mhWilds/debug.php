@@ -5,18 +5,19 @@ $bd = simplexml_load_file("/mnt/disk/.resources/bd/mhWilds/mhWilds.xml");
 $otomosPercentSum = 0;
 $i = 0;
 foreach ($bd->hunt as $hunt) {
-	$total = getTotalDamageFromHunt($hunt);
-
-	$otomoDamage = 0;
-	$totalDamage = 0; 
-	foreach ($total as $player => $damage){
-		if (isOtomo($bd, $player)){
-			$otomoDamage += $damage;
-		}
-		$totalDamage += $damage;
+	if(count($hunt->player) != 2){
+		continue;
 	}
 
-	$otomosPercentSum += $otomoDamage / $totalDamage;
+	$otomos = getOtomosFromHunt($hunt);
+	$hp = getTotalMaxHpFromHunt($hunt);
+
+	$otomoDamage = 0;
+	foreach($otomos as $otomo){
+		$otomoDamage += getTotalDamageCountFromHunt($hunt, $otomo);
+	}
+
+	$otomosPercentSum += $otomoDamage / $hp;
 	$i++;
 }
 

@@ -60,7 +60,7 @@ function getConsistent($bd){
 
 		$hp = 0;
 		foreach ($hunt->monster as $monster) {
-			$hp = $hp + $monster->maxHP;
+			$hp += $monster->maxHP;
 		}
 
 		$numHunters = count($hunt->player);
@@ -94,12 +94,57 @@ function getConsistent($bd){
 	return array_key_first($cons);
 }
 
+function getExpected($bd){
+	$cons = array();
+	$count = array();
+	$otomos = getAllOtomos($bd);
+
+	foreach ($bd->hunt as $hunt) {
+		$interval = DPS_INTERVAL;
+		if(count($hunt->otomo) == 0){
+			$interval[2] = 50;
+		}
+
+		$hp = getTotalMaxHpFromHunt($hunt);
+		$numHunters = count($hunt->player);
+		$damages = getTotalDamageFromHunt($hunt);
+
+		foreach ($damages as $player => $value) {
+			if (in_array($player, $otomos)) {
+				continue;
+			}
+
+			$devi = abs((($value/$hp) * 100) - $interval[$numHunters]);
+
+			if(isset($cons[$player])){
+				$cons[$player] += $devi;
+				$count[$player]++;
+			}
+			else{
+				$cons[$player] = $devi;
+				$count[$player] = 1;
+			}
+		}
+	}
+
+	foreach ($cons as $player => $value) {
+		$cons[$player] = $value / $count[$player];
+	}
+
+	asort($cons);
+	return array_key_first($cons);
+}
+
 function getTopGato($bd){
 	$tops1 = [];
 	foreach ($bd->hunt as $hunt) {
 		$max = 0;
 		$name = "";
 		$otomos = getOtomosFromHunt($hunt);
+
+		if (count($otomos) == 0){
+			continue;
+		}
 
 		foreach ($otomos as $otomo) {
 			$count = getTotalDamageCountFromHunt($hunt, $otomo);
@@ -404,6 +449,9 @@ function mostTankyMonster($bd){
 		</tr>
 		<tr>
 			<td>Top Consistencia</td><td><?php echo getConsistent($bd); ?></td>
+		</tr>
+		<tr>
+			<td>Hace lo justo</td><td><?php echo getExpected($bd); ?></td>
 		</tr>
 		<tr>
 			<td>Top Gato</td><td><?php echo getTopGato($bd); ?></td>
