@@ -53,6 +53,16 @@ $hunt = $bd->hunt[$id];
 				?>
 			</div>
 			<div id="graph">
+				<span>Total HP: 
+					<?php
+						for($i = 0; $i < count($monsters); $i++){
+							echo round($hunt->monster[$i]->maxHP);
+							if ($i != count($monsters) - 1){
+								echo " / ";
+							} 
+						}
+					?>
+				</span>
 				<canvas id="damageGraph" height="100"></canvas>
 
 				<script>
